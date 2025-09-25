@@ -1,0 +1,46 @@
+edition = "2023";
+
+package api.chat.v1;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/DelightVLG/msc-chatserver/pkg/api/user/v1;chatv1";
+
+service ChatService {
+  rpc Create(CreateRequest) returns (CreateResponse);
+  rpc Delete(DeleteRequest) returns (DeleteResponse);
+  rpc SendMessage(SendMessageRequest) returns (SendMessageResponse);
+}
+
+message Chat {
+  int64 id = 1;
+  repeated string usernames = 2;
+}
+
+message Message {
+  string from = 1;
+  string text = 2;
+  google.protobuf.Timestamp timestamp = 3;
+}
+
+message CreateRequest {
+  repeated string usernames = 1;
+}
+
+message CreateResponse {
+  int64 id = 1;
+}
+
+message DeleteRequest {
+  int64 id = 1;
+}
+
+message DeleteResponse {}
+
+message SendMessageRequest {
+  string from = 1;
+  string text = 2;
+  google.protobuf.Timestamp timestamp = 3;
+}
+
+message SendMessageResponse {}
